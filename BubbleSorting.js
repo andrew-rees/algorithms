@@ -1,50 +1,12 @@
-//////Bubble Sort//////
+//DONE
 
-
-//var haveSorted;
-
-//console.log("Before :" + numbers);
-
-// function sort(firstNumber, secondNumber) {
-//     if (firstNumber < secondNumber) {
-//         numbers[0] = firstNumber;
-//         numbers[1] = secondNumber;
-//         //hasSortedThisTime = true
-//     };
-// };
-
-//sort(6, 2);
-// sort(numbers[2], numbers[3], 2);
-// sort(numbers[4], numbers[5], 4);
-
-//console.log("After :" + numbers)
-
-//have a do while loop - while justSorted = true, do it.
-
-// for (i = 0; i < numbers.length; i++) {
-//     var hasSortedThisTime
-//     sort(numbers[i], numbers[i + 1]);
-//     if (hasSortedThisTime === true) {
-//         haveSorted = true;
-//     } else {
-//         haveSorted = false;
-//     }
-// };
-
-// console.log(numbers);
-// console.log(haveSorted);
-
-
-// var test = [2, 3]
-// test.splice(0, 1, 1)
-// console.log(test)
-
-var numbers = [6, 2, 1, 3, 5, 4];
-var needToSortAgain = "Yes";
+var numbers = [7, 6, 8, 9, 2, 1, 0, 11, -1, 3, 5, 4, 10, 10, 0.5];
+var needToSortAgain = true;
 console.log("At the start numbers = "+ numbers)
 var timesSorted = 0;
+var timesSortingAttempted = 0;
 
-while (needToSortAgain === "Yes") {
+while (needToSortAgain) {
     var hasSortedOnThisForLoop = undefined;
     for (i = 0; i < numbers.length; i++) {
         var firstNumber = numbers[i];
@@ -57,16 +19,16 @@ while (needToSortAgain === "Yes") {
             if (hasJustSorted === true) {
                 hasSortedOnThisForLoop = true
             };
-        };
-        console.log(numbers + ": needToSortAgain = " + needToSortAgain + ". Sort number:" + timesSorted);
+        } else {
+            timesSortingAttempted++
+        }
+        //console.log(numbers + ": needToSortAgain = " + needToSortAgain + ". Sort number:" + timesSorted);
         timesSorted++;
     };
     if (!hasSortedOnThisForLoop) {
-        needToSortAgain = "No";
+        needToSortAgain = false;
     };
 };
-console.log(needToSortAgain);
+console.log(`Sorted List at end: ${numbers}`);
 console.log(`Times sorted: ${timesSorted}`)
-
-
-//console.log(hasSortedOnThisForLoop)
+console.log(`Times sorting attempted: ${timesSorted + timesSortingAttempted}`);
