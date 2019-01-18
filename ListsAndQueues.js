@@ -51,13 +51,13 @@ function fillShop() {
 };
 
 function fillStoreRoom() {
-    storeRoom.push(new Item("beans", randomNumber(1, (beansIdealStock.quantity / 2))));
-    storeRoom.push(new Item("bananas", randomNumber(1, (bananasIdealStock.quantity / 2))));
-    storeRoom.push(new Item("beef", randomNumber(1, (beefIdealStock.quantity / 2))));
-    storeRoom.push(new Item("peanuts", randomNumber(1, (peanutsIdealStock.quantity / 2))));
-    storeRoom.push(new Item("chicken", randomNumber(1, (chickenIdealStock.quantity / 2))));
-    storeRoom.push(new Item("quorn", randomNumber(1, (quornIdealStock.quantity / 2))));
-    storeRoom.push(new Item("lager", randomNumber(1, (lagerIdealStock.quantity / 2))));
+    storeRoom.push(new Item("beans", randomNumber(0, (beansIdealStock.quantity / 2))));
+    storeRoom.push(new Item("bananas", randomNumber(0, (bananasIdealStock.quantity / 2))));
+    storeRoom.push(new Item("beef", randomNumber(0, (beefIdealStock.quantity / 2))));
+    storeRoom.push(new Item("peanuts", randomNumber(0, (peanutsIdealStock.quantity / 2))));
+    storeRoom.push(new Item("chicken", randomNumber(0, (chickenIdealStock.quantity / 2))));
+    storeRoom.push(new Item("quorn", randomNumber(0, (quornIdealStock.quantity / 2))));
+    storeRoom.push(new Item("lager", randomNumber(0, (lagerIdealStock.quantity / 2))));
     //pick random items from array
     //remove them (so there's no storage)
     (function () {
@@ -73,12 +73,12 @@ function fillStoreRoom() {
 
     //remove any 0 items to tidy up store
     //ODESN'T WORK - JUST RETURNS EMPTY ARRAY
-    var tidyStoreRoom = storeRoom.filter(Item => {
+    storeRoom = storeRoom.filter(Item => 
         Item.quantity > 0
-    });
+    );
 
     console.log(`----------- Store Room after tidy----------\n`);
-    console.log(tidyStoreRoom);
+    console.log(storeRoom);
     console.log("\n");
 };
 
@@ -143,6 +143,7 @@ function deliveryArrives() {
     order.sort(sortDeliveryByUrgency);
     console.log(`-----------Order after sorting----------\n`)
     console.log(order)
+    console.log("\n");
 };
 
 deliveryArrives()
@@ -169,7 +170,7 @@ var trolley = [];
 
 //not working yet
 
-function fillTrolley() {
+function fillTrolleySelection() {
     for (i = 0; i < storeRoom.length; i++) {
         if (i === 0) {
             trolley.unshift(storeRoom[0]);
@@ -186,7 +187,14 @@ function fillTrolley() {
     };
 };
 
-fillTrolley();
+fillTrolleySelection();
+
+function fillTrolleyMerge () {
+    for (i = 0; i < storeRoom.length; i++) {
+        storeRoom.splice()
+
+    };
+};
 
 // for (i = 0; i < storeRoom.length; i++) { //each item in store
 //     fillTrolley(storeRoom[i]);
