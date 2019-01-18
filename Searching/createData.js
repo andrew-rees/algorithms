@@ -20,7 +20,7 @@ Fs.readFile('words2.txt', function (err, data) {
     if (err) throw err;
     var string = data.toString()
     string = string.replace(/\s+/g, ' ');
-    var textArray = string.split(' ');
+    var textArray = string.split(' ').sort();
     var randomWord = textArray[randomNumber(0, textArray.length)];
     console.log(randomWord);
     //var startLinear = new Date().getTime();
@@ -37,20 +37,21 @@ Fs.readFile('words2.txt', function (err, data) {
 });
 
 function binarySearch(list, valueToFind) {
-    var found = false;
-    var length = list.length-1;
-    var newTextArray = [];
-    if (found) return; //base case
-    var middleValue = list[length/2];
+    if (list.length ===  0) {
+        console.log(`${valueToFind} cannot be found`);
+        return;
+    }
+
+    var middleIndex = Math.floor(list.length / 2);
+    var middleValue = list[middleIndex];
     if (valueToFind === middleValue) {
         console.log(`${valueToFind} is found at position TBC`);
-        found = true;
+        return;
     } else if (valueToFind > middleValue) {
-        newTextArray = list.slice((length / 2) + 1, length);
-    } else if (valueToFind < middleValue) {
-        newTextArray = list.slice(0, (length / 2) -1);
+        binarySearch(list.slice(middleIndex + 1, list.length), valueToFind);
+    } else {
+        binarySearch(list.slice(0, middleIndex), valueToFind);
     };
-    binarySearch(newTextArray, valueToFind);
 };
     
 function linearSearch(list, valueToFind) {
