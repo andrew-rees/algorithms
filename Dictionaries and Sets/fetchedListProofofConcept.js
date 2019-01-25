@@ -33,24 +33,17 @@ fetch(`https://raw.githubusercontent.com/first20hours/google-10000-english/maste
     .then(function (response) {
         return response.text()
     })
-    .then(function (theWords) {
-        //console.log(theWords)
-        return theWords;
-    })
     .then(function (list) {
         //Strip out white space and adds comma
-        list = list.replace(/\s+/g, ',');
+        list = list.replace(/\s+/g, ',')
         //Convert comma separated string to array
         var wordsArray = list.split(',');
-        //console.log(wordsArray)
-        //console.log(wordsArray[2])
-
         //create bitmap
         wordsArray.forEach(word => {
             bitmap.add(createFirst(word)).add(createLast(word))
         });
 
-        console.log(bitmap);
+        console.log(bitmap)
 
         //start prompt
         console.log('Please search for a common English language word:');
@@ -65,6 +58,7 @@ fetch(`https://raw.githubusercontent.com/first20hours/google-10000-english/maste
                 console.log("It's literally defo not in here lol xo");
             };
         };
+
         //create terms to look for
         var searchTermFirst = createFirst(searchTerm);
         var searchTermLast = createLast(searchTerm);
