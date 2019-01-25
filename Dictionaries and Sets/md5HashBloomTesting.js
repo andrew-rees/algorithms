@@ -7,15 +7,33 @@ var bitmap = new Set();
 var githubWords = "https://raw.githubusercontent.com/first20hours/google-10000-english/master/20k.txt";
 var codeKataWords = "http://codekata.com/data/wordlist.txt";
 
+var matchRandomWords = 0;
+var noMatchRandomWords = 0;
+
 function findThatTerm(setToSearch, searchTermFirst, searchTermMiddle, searchTermLast, searchTerm) {
     var hasStart = setToSearch.has(searchTermFirst);
     var hasMiddle = setToSearch.has(searchTermMiddle);
     var hasEnd = setToSearch.has(searchTermLast);
     //console.log("Are the segments found in the set: " + hasStart + /*hasMiddle*/ + hasEnd)
     if (hasStart && hasEnd && hasMiddle) {
-        console.log(`Bloom Filter: ${searchTerm} is probably there`);
+        matchRandomWords++
     } else {
-        console.log(`Bloom Filter: ${searchTerm} is NOT there`);
+        noMatchRandomWords++
+    };
+};
+
+var matchRandomCharacters = 0;
+var noMatchRandomCharacters = 0;
+
+function countResults(setToSearch, searchTermFirst, searchTermMiddle, searchTermLast) {
+    var hasStart = setToSearch.has(searchTermFirst);
+    var hasMiddle = setToSearch.has(searchTermMiddle);
+    var hasEnd = setToSearch.has(searchTermLast);
+    //console.log("Are the segments found in the set: " + hasStart + /*hasMiddle*/ + hasEnd)
+    if (hasStart && hasEnd && hasMiddle) {
+        matchRandomCharacters++
+    } else {
+        noMatchRandomCharacters++
     };
 };
 
@@ -52,21 +70,22 @@ function randomNumber(min, max) {
 };
 
 var randomWords = [];
+
 function generateRandomWords(list) {
     for (i = 0; i < 100; i++) {
-        randomWords.push(list[randomNumber(0, list.length)]) 
+        randomWords.push(list[randomNumber(0, list.length)])
     };
 };
 
 var randomCharacters = [];
-function generateRandomCharacters () {
+function generateRandomCharacters() {
     for (i = 0; i < 100; i++) {
         randomCharacters.push(Math.random().toString(36).substring(7));
-    }; 
+    };
 };
 
 //start the work
-fetch(githubWords)
+fetch(codeKataWords)
     .then(function (response) {
         return response.text();
     })
@@ -85,8 +104,8 @@ fetch(githubWords)
         });
 
         //console.log(bitmap);
-        console.log(bitmap.size);
-        //console.log("Length of list of words: " + wordsArray.length)
+        console.log("Size of the bitmap: " + bitmap.size);
+        console.log("Length of list of words: " + wordsArray.length)
 
         //run the random word tester on Bloom
         generateRandomWords(wordsArray);
@@ -97,6 +116,8 @@ fetch(githubWords)
             var searchTermLast = createLast(hashToFind);
             findThatTerm(bitmap, searchTermFirst, searchTermMiddle, searchTermLast, word);
         });
+        console.log("Random Word Matches: " + matchRandomWords);
+        console.log("Random Word No Matches: " + noMatchRandomWords);
 
         //run the random character tester on Bloom
         generateRandomCharacters();
@@ -105,8 +126,10 @@ fetch(githubWords)
             var searchTermFirst = createFirst(hashToFind);
             var searchTermMiddle = createMiddle(hashToFind);
             var searchTermLast = createLast(hashToFind);
-            findThatTerm(bitmap, searchTermFirst, searchTermMiddle, searchTermLast, word);
+            //findThatTerm(bitmap, searchTermFirst, searchTermMiddle, searchTermLast, word);
+            countResults(bitmap, searchTermFirst, searchTermMiddle, searchTermLast)
         });
-
+        console.log("Character Matches: " + matchRandomCharacters);
+        console.log("Character No Matches: " + noMatchRandomCharacters);
     })
     .catch();

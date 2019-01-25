@@ -40,13 +40,18 @@ fetch(githubWords)
         list = list.replace(/\s+/g, ',');
         //Convert comma separated string to array
         var wordsArray = list.split(',');
+
+        //customise length of array
+        var howManyWords = 300;
+        var shorterArray = wordsArray.slice(0, howManyWords)
+
         //create bitmap
-        wordsArray.forEach(word => {
+        shorterArray.forEach(word => {
             var hashedWord = md5(word);
             bitmap.add(createFirst(hashedWord)).add(createLast(hashedWord));
         });
 
-        //console.log(bitmap);
+        console.log(bitmap);
         console.log(bitmap.size);
 
         //start prompt
