@@ -28,8 +28,10 @@ function createLast(word) {
 
 //find the Term within the Set
 
+var githubWords = "https://raw.githubusercontent.com/first20hours/google-10000-english/master/20k.txt";
+var codeKataWords = "http://codekata.com/data/wordlist.txt";
 
-fetch(`https://raw.githubusercontent.com/first20hours/google-10000-english/master/20k.txt`)
+fetch(githubWords)
     .then(function (response) {
         return response.text()
     })
@@ -44,6 +46,7 @@ fetch(`https://raw.githubusercontent.com/first20hours/google-10000-english/maste
         });
 
         console.log(bitmap)
+        console.log(bitmap.size)
 
         //start prompt
         console.log('Please search for a common English language word:');
