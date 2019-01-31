@@ -20,7 +20,7 @@ function createLast(word) {
 };
 
 //find the Term within the Set
-function findThatTerm(setToSearch) {
+function findThatTerm(setToSearch, searchTermFirst, searchTermLast) {
     var hasFirstLetter = setToSearch.has(searchTermFirst);
     var hasLastLetter = setToSearch.has(searchTermLast);
     if (hasFirstLetter && hasLastLetter) {
@@ -44,4 +44,4 @@ var searchTermFirst = createFirst(searchTerm);
 var searchTermLast = createLast(searchTerm);
 
 //look for them
-findThatTerm(bitmap)
+findThatTerm(bitmap, searchTermFirst, searchTermLast)
